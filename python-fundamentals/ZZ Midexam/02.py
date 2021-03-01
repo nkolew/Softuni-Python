@@ -1,9 +1,9 @@
-def add(l: list, v: int):
+def add(l: list, v: int) -> list:
     l.append(v)
     return l
 
 
-def remove(l: list, v: int):
+def remove(l: list, v: int) -> list:
     for i in range(len(l)):
         if l[i] == v:
             l.pop(i)
@@ -11,7 +11,7 @@ def remove(l: list, v: int):
     return l
 
 
-def replace(l: list, v: int, r: int):
+def replace(l: list, v: int, r: int) -> list:
     for i in range(len(l)):
         if l[i] == v:
             l.pop(i)
@@ -20,14 +20,14 @@ def replace(l: list, v: int, r: int):
     return l
 
 
-def collapse(l: list, v: int):
+def collapse(l: list, v: int) -> list:
     for i in range(len(l)-1, -1, -1):
         if l[i] < v:
             l.pop(i)
     return l
 
 
-def repr_l(l: list):
+def repr_l(l: list) -> str:
     return ' '.join(map(str, l))
 
 
