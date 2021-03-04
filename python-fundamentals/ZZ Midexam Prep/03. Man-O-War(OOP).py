@@ -12,6 +12,9 @@ class Ship:
     def sink(self):
         self.sunk = True
 
+    def is_sunk(self) -> bool:
+        return self.sunk
+
     def get_status(self):
         threshold = 0.2 * self.max_health
         need_repair = len([e for e in self.status if e < threshold])
@@ -63,14 +66,14 @@ while True:
     if command == 'Fire':
         index, damage = int(tokens[0]), int(tokens[1])
         w.fire(index, damage)
-        if w.sunk:
+        if w.is_sunk():
             print('You won! The enemy ship has sunken.')
             break
     elif command == 'Defend':
         index_s, index_e, damage = int(
             tokens[0]), int(tokens[1]), int(tokens[2])
         p.defend(index_s, index_e, damage)
-        if p.sunk:
+        if p.is_sunk():
             print('You lost! The pirate ship has sunken.')
             break
     elif command == 'Repair':
@@ -80,6 +83,6 @@ while True:
         print(p.get_status())
 
 
-if not p.sunk and not w.sunk:
+if not p.is_sunk() and not w.is_sunk():
     print(p)
     print(w)
