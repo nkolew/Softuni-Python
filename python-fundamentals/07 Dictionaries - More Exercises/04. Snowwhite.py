@@ -9,11 +9,11 @@ class Dwarf:
         self.physics = physics
         self.count = 0
 
-    def set_count(self, c: int):
-        self.count = c
-
     def update(self, new_physics: int):
         self.physics = new_physics
+
+    def set_count(self, c: int):
+        self.count = c
 
 
 class Order:
