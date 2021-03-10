@@ -1,14 +1,14 @@
-tokens = input().split('>')
-explosion_strength = 0
-after_explosion = []
-for token in tokens:
-    if token[0].isdigit():
-        explosion_strength += int(token[0])
-        if len(token) <= explosion_strength:
-            explosion_strength -= len(token)
-            token = '>'
+data = input().split('>')
+strength = 0
+result = []
+for word in data:
+    if word[0].isdigit():
+        strength += int(word[0])
+        if strength > len(word):
+            strength -= len(word)
+            word = '>'
         else:
-            token = '>'+''.join(list(token[explosion_strength::]))
-            explosion_strength = 0
-    after_explosion.append(token)
-print(''.join(after_explosion))
+            word = '>'+word[strength::]
+            strength = 0
+    result.append(word)
+print(''.join(result))

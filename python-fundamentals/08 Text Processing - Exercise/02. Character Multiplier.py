@@ -1,20 +1,22 @@
-def chr_multiplier(s1: str, s2: str):
-    result = 0
+def compare_strings(data: list) -> tuple:
+    s1 = data[0]
+    s2 = data[1]
+    if len(s1) == min(len(s1), len(s2)):
+        return s1, s2
+    return s2, s1
 
-    long = max((len(s1), len(s2)))
 
-    for i in range(long):
-        if i >= len(s1):
-            result += ord(s2[i])
-        elif i >= len(s2):
-            result += ord(s1[i])
+def multiply_char(strings: tuple) -> int:
+    s, l = strings
+    total = 0
+    for i in range(len(l)):
+        if i < len(s):
+            total += ord(s[i])*ord(l[i])
         else:
-            result += ord(s1[i])*ord(s2[i])
-    return result
+            total += ord(l[i])
+    return total
 
 
-strings = input().split()
-s1 = strings[0]
-s2 = strings[1]
+data = input().split()
 
-print(chr_multiplier(s1, s2))
+print(multiply_char(compare_strings(data)))
