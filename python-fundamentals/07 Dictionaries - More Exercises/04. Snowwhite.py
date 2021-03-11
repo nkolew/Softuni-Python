@@ -15,6 +15,9 @@ class Dwarf:
     def set_count(self, c: int):
         self.count = c
 
+    def __repr__(self) -> str:
+        return f'{self.color}) {self.name} <-> {self.physics}'
+
 
 class Order:
     def __init__(self) -> None:
