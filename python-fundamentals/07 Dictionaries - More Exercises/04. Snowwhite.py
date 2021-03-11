@@ -16,7 +16,7 @@ class Dwarf:
         self.count = c
 
     def __repr__(self) -> str:
-        return f'{self.color}) {self.name} <-> {self.physics}'
+        return f'({self.color}) {self.name} <-> {self.physics}'
 
 
 class Order:
