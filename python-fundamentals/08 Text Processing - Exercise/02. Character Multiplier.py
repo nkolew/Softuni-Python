@@ -1,9 +1,7 @@
 def compare_strings(data: list) -> tuple:
     s1 = data[0]
     s2 = data[1]
-    if len(s1) == min(len(s1), len(s2)):
-        return s1, s2
-    return s2, s1
+    return min(len(s1), len(s2)), max(len(s1), len(s2))
 
 
 def multiply_char(strings: tuple) -> int:
