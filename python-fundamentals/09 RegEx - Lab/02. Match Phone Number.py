@@ -2,9 +2,9 @@ import re
 
 
 data = input()
-pattern = r'(\+359\s2\s\d{3}\s\d{4}\b)|(\+359-2-\d{3}-\d{4}\b)'
+pattern = r'(^|(?<=\s))(?P<number>\+359(?P<sep>\s|\-)2(?P=sep)\d{3}(?P=sep)\d{4})((?=,)|$)'
 
-matches =[]
+matches = []
 for i in re.finditer(pattern, data):
-    matches.append(i.group(0))
-print(', '.join(matches)) 
+    matches.append(i.group('number'))
+print(', '.join(matches))

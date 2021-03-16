@@ -1,10 +1,10 @@
 import re
 
 
-pattern = r'(^|(?<=\s))-?\d+(\.\d+)?($|(?=\s))'
+pattern = r'(^|(?<=\s))(?P<num>-?\d+(\.[\d]+)?)($|(?=\s))'
 data = input()
 
 matches = re.finditer(pattern, data)
 
-numbers = [n.group() for n in matches]
+numbers = [n.group('num') for n in matches]
 print(*numbers)

@@ -1,8 +1,9 @@
 import re
 
 
-pattern = r'(?P<day>\d{2})(?P<separator>[\./-])(?P<month>[A-Z][a-z]{2})(?P=separator)(?P<year>\d{4})'
+pattern = r'(^|(?<=\s))(?P<day>\d\d)(?P<sep>[\./-])(?P<month>[A-Z][a-z]{2})(?P=sep)(?P<year>\d{4})($|,|(?=\s))'
 data = input()
 
-for i in re.finditer(pattern, data):
-    print(f"Day: {i.groupdict()['day']}, Month: {i.groupdict()['month']}, Year: {i.groupdict()['year']}")
+for match in re.finditer(pattern, data):
+    print(
+        f'Day: {match.group("day")}, Month: {match.group("month")}, Year: {match.group("year")}')
