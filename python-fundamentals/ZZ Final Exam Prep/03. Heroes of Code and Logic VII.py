@@ -156,7 +156,7 @@ class Game:
                 if h.name == name:
                     return h.cast_spell(mp_needed, spell)
 
-        if command == 'TakeDamage':
+        elif command == 'TakeDamage':
             if len(tokens) != 2:
                 return f'Invalid input'
             damage, attacker = tokens
@@ -168,7 +168,7 @@ class Game:
                         self.heroes.pop(i)
                     return message
 
-        if command == 'Recharge':
+        elif command == 'Recharge':
             if len(tokens) != 1:
                 return f'Invalid input'
             charge = int(''.join(tokens))
@@ -176,7 +176,7 @@ class Game:
                 if h.name == name:
                     return h.recharge(charge)
 
-        if command == 'Heal':
+        elif command == 'Heal':
             if len(tokens) != 1:
                 return f'Invalid input'
             amount = int(''.join(tokens))
