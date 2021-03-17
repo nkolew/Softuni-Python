@@ -32,7 +32,8 @@ def get_message_info(message: str, planets: dict) -> dict:
     Returns:
         planets (dict): Updated Planets dict
     """
-    pattern = r'(?:(?<=\@)(?P<name>[A-Za-z]+).*(?<=\:)(?P<population>\d+).*(?<=\!)(?P<attack>[AD])(?=\!).*(?<=\-\>)(?P<soldiers>[\d]+))'
+    # ! NOT WORKING pattern = r'(?:(?<=\@)(?P<name>[A-Za-z]+)[^@!:>-]*(?<=\:)(?P<population>\d+)[^@!:>-]*(?<=\!)(?P<attack>[AD])(?=\!)[^@!:>-]*(?<=\-\>)(?P<soldiers>[\d]+))'
+    pattern = r'(?:@(?P<name>[A-Za-z]+)[^@!:>-]*:(?P<population>\d+)[^@!:>-]*!(?P<attack>A|D)![^@!:>-]*->(?P<soldiers>[\d]+))'
     m = re.search(pattern, message)
 
     if m:
