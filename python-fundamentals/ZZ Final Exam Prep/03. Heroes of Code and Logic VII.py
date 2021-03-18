@@ -52,7 +52,7 @@ class Hero:
         Returns:
             str: Object attributes
         """
-        f'{self.name}|{self.hp}|{self.mp}'
+        return f'{self.name}|{self.hp}|{self.mp}'
 
     def cast_spell(self, mp_needed: int, spell: str) -> str:
         """If the hero has the required MP, he casts the spell, thus reducing his MP
