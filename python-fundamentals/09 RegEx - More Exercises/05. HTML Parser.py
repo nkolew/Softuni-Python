@@ -5,7 +5,7 @@ data = input()
 head_text = ''
 body_text = ''
 
-head_pattern = r'(?<=\<title\>)(?P<title>[A-Za-z ]+)(?=\</title\>)'
+head_pattern = r'(?<=\<title\>)(?P<title>.*)(?=\</title\>)'
 body_pattern = r'(?<=\<body)(?P<body>.*)(?=body\>)'
 text_pattern = r'>([^<>]*)<'
 
