@@ -19,6 +19,7 @@ if m:
     body_text = ''.join(re.findall(text_pattern, body_html))
     while '\n' in body_text:
         body_text = body_text.replace('\n', ' ')
+    while '\\n' in body_text:
         body_text = body_text.replace('\\n', ' ')
 
 
