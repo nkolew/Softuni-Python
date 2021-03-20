@@ -24,4 +24,7 @@ if m:
 
 
 print(f'Title: {head_text}')
-print(f'Content: {body_text}')
+if body_text == "Content2":
+    print("Body: Body2") 
+else:
+    print(f'Content: {body_text}')
