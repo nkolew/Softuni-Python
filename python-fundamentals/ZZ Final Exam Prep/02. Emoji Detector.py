@@ -21,4 +21,7 @@ for m in re.finditer(emojis_pattern, data):
 
 print(f'Cool threshold: {thresshold}')
 print(f'{len(emojis)} emojis found in the text. The cool ones are:')
-[print(e) for e, v in emojis.items() if v > thresshold]
+for e, v in emojis.items():
+    if v > thresshold:
+        print(e)
+
