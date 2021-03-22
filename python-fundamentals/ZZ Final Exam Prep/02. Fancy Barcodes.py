@@ -1,19 +1,19 @@
 import re
 
 
-pattern = r'(?:(^@#+)(?P<code>[A-Z][A-Za-z0-9]{4,}[A-Z])(@#+$))'
-nums_pattern = r'\d'
-
+pattern = r'((@#+)([A-Z][A-Za-z0-9]{4,}[A-Z])(@#+))'
+digits = r'\d'
 n = int(input())
+
+
 for _ in range(n):
-    data = input()
-    m = re.fullmatch(pattern, data)
-    if not m:
-        print('Invalid barcode')
-        continue
-    code = m.group('code')
-    nums = re.findall(nums_pattern, code)
-    product_group = '00'
-    if len(nums) != 0:
-        product_group = ''.join(nums)
-    print(f'Product group: {product_group}')
+    s = input()
+    m = re.fullmatch(pattern, s)
+    if m:
+        product_group = '00'
+        current_digits = re.findall(digits, s)
+        if current_digits:
+            product_group = ''.join(current_digits)
+        print(f'Product group: {product_group}')
+    else:
+        print(f"Invalid barcode")
