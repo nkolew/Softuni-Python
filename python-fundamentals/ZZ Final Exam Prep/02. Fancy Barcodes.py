@@ -1,7 +1,7 @@
 import re
 
 
-pattern = r'((@#+)([A-Z][A-Za-z0-9]{4,}[A-Z])(@#+))'
+pattern = r'(@#+)([A-Z][A-Za-z0-9]{4,}[A-Z])(@#+)'
 digits = r'\d'
 n = int(input())
 
