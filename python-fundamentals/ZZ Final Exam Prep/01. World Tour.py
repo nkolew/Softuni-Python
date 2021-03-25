@@ -55,8 +55,7 @@ def switch(s: str, old: str, new: str) -> str:
         str: Changed string
     """
     if old in s:
-        while old in s:
-            s = s.replace(old, new)
+        s = s.replace(old, new)
     return s
 
 
