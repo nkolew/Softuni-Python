@@ -14,38 +14,6 @@ class Hero:
         self.hp: int = hp
         self.mp: int = mp
 
-    def get_hp(self) -> int:
-        """Returns the Health value
-
-        Returns:
-            int: hp value
-        """
-        return self.hp
-
-    def get_mp(self) -> int:
-        """Returns the Mana value
-
-        Returns:
-            int: mp value
-        """
-        return self.mp
-
-    def set_hp(self, v: int):
-        """Sets the Health value
-
-        Args:
-            v (int): new health value
-        """
-        self.hp = v
-
-    def set_mp(self, v: int):
-        """Sets the Mana value
-
-        Args:
-            v (int): new mana value
-        """
-        self.mp = v
-
     def __repr__(self) -> str:
         """Text representation of the object. For debugging only
 
@@ -66,7 +34,7 @@ class Hero:
         """
         if self.mp >= mp_needed:
             new_mp = self.mp - mp_needed
-            self.set_mp(new_mp)
+            self.mp = new_mp
             return f'{self.name} has successfully cast {spell} and now has {self.mp} MP!'
         return f'{self.name} does not have enough MP to cast {spell}!'
 
@@ -83,8 +51,8 @@ class Hero:
         if self.hp < damage:
             self.hp = damage
         new_hp = self.hp - damage
-        self.set_hp(new_hp)
-        if self.get_hp() == 0:
+        self.hp = new_hp
+        if self.hp == 0:
             return True, f'{self.name} has been killed by {attacker}!'
         return False, f'{self.name} was hit for {damage} HP by {attacker} and now has {self.hp} HP left!'
 
@@ -100,7 +68,7 @@ class Hero:
         if self.mp + charge > MAX_MP:
             charge = MAX_MP - self.mp
         new_mp = self.mp + charge
-        self.set_mp(new_mp)
+        self.mp = new_mp
         return f'{self.name} recharged for {charge} MP!'
 
     def heal(self, amount: int) -> str:
@@ -115,7 +83,7 @@ class Hero:
         if self.hp + amount > MAX_HP:
             amount = MAX_HP - self.hp
         new_hp = self.hp + amount
-        self.set_hp(new_hp)
+        self.hp = new_hp
         return f'{self.name} healed for {amount} HP!'
 
 
