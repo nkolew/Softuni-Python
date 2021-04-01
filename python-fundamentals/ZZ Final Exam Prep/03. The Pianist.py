@@ -18,28 +18,28 @@ class Collection:
     def __init__(self) -> None:
         self.pieces: List[Piece] = []
 
-    def __piece_exists(self, name: str) -> 'tuple[bool,int]':
+    def _piece_exists(self, name: str) -> 'tuple[bool,int]':
         for index, piece in enumerate(self.pieces):
             if piece.name == name:
                 return True, index
         return False, 0
 
     def add(self, name: str, composer: str, key: str) -> str:
-        piece_exists, index = self.__piece_exists(name)
+        piece_exists, index = self._piece_exists(name)
         if piece_exists:
             return f'{name} is already in the collection!'
         self.pieces.append(Piece(name, composer, key))
         return f'{name} by {composer} in {key} added to the collection!'
 
     def remove(self, name: str) -> str:
-        piece_exists, index = self.__piece_exists(name)
+        piece_exists, index = self._piece_exists(name)
         if piece_exists:
             self.pieces.pop(index)
             return f'Successfully removed {name}!'
         return f'Invalid operation! {name} does not exist in the collection.'
 
     def change_key(self, name: str, new_key: str) -> str:
-        piece_exists, index = self.__piece_exists(name)
+        piece_exists, index = self._piece_exists(name)
         if piece_exists:
             self.pieces[index].change_key(new_key)
             return f'Changed the key of {name} to {new_key}!'
