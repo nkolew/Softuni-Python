@@ -1,6 +1,3 @@
-import re
-
-
 def add(d: dict, p: str, h: int, e: int) -> dict:
     if p not in d:
         d[p] = {'health': h, 'energy': e}
