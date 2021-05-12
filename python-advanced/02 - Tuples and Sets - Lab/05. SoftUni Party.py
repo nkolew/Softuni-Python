@@ -1,8 +1,11 @@
-def get_n_items(n: int) -> list:
+from typing import List
+
+
+def get_n_items(n: int) -> List[str]:
     return [input() for _ in range(n)]
 
 
-def get_items_until_stop(stop: str) -> list:
+def get_items_until_stop(stop: str) -> List[str]:
     items = []
     while True:
         item = input()
@@ -11,7 +14,7 @@ def get_items_until_stop(stop: str) -> list:
         items.append(item)
 
 
-def get_guests_not_attd(resv, attd):
+def get_guests_not_attd(resv: List[str], attd: List[str]):
     return set(resv) ^ set(attd)
 
 
@@ -20,7 +23,7 @@ def fmt_guests(guests: set) -> str:
     return f'{len(guests)}' + nl + f'{nl.join(sorted(guests))}'
 
 
-def main():
+def main() -> None:
     n = int(input())
     resv = get_n_items(n)
     attd = get_items_until_stop('END')
