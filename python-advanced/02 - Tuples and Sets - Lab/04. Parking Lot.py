@@ -2,7 +2,7 @@ from typing import List, Set
 
 
 class Car:
-    def __init__(self, reg_num) -> None:
+    def __init__(self, reg_num: str) -> None:
         self.reg_num = reg_num
 
     def __eq__(self, other):
