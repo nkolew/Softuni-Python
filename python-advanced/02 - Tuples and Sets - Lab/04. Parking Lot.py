@@ -1,4 +1,4 @@
-from typing import Set
+from typing import List, Set
 
 
 class Car:
@@ -44,12 +44,23 @@ class Parking:
         return ', '.join([car.reg_num for car in self.__cars])
 
 
-p = Parking()
+def get_n_items(n: int) -> list:
+    return [input() for _ in range(n)]
 
-n = int(input())
 
-for _ in range(n):
-    direction, reg_num = input().split(', ')
-    p.process_car(direction, Car(reg_num))
+def park_cars(cars: List[str]) -> Parking:
+    p = Parking()
+    for car_data in cars:
+        direction, reg_num = car_data.split(', ')
+        p.process_car(direction, Car(reg_num))
+    return p
 
-print(p.get_status())
+
+def main() -> None:
+    n = int(input())
+    cars = get_n_items(n)
+    p = park_cars(cars)
+    print(p.get_status())
+
+
+main()
