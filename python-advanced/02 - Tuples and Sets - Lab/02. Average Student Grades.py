@@ -28,7 +28,7 @@ def fmt_output(grades: dict) -> str:
     return nl.join(result)
 
 
-def main():
+def main() -> None:
     n = int(input())
     data = get_n_items(n)
     grades = parse_items_to_dict(data)
