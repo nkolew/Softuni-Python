@@ -9,7 +9,7 @@ def get_occurences(nums: List[float]) -> dict:
     return occurences
 
 
-def fmt_occurences(ocurrences: dict):
+def fmt_occurences(ocurrences: dict) -> str:
     result = []
     nl = '\n'
     for num, count in ocurrences.items():
@@ -17,7 +17,7 @@ def fmt_occurences(ocurrences: dict):
     return nl.join(result)
 
 
-def main():
+def main() -> None:
     numbers = list(map(float, input().split()))
     occurences = get_occurences(numbers)
     print(fmt_occurences(occurences))
