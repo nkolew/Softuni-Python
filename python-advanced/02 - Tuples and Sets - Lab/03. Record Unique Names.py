@@ -11,7 +11,7 @@ def fmt_output(items: set) -> str:
     return nl.join([i for i in items])
 
 
-def main():
+def main() -> None:
     n = int(input())
     names = get_n_items(n)
     unique_names = get_unique_items(names)
