@@ -15,7 +15,7 @@ def get_items_until_stop(stop: str) -> List[str]:
 
 
 def get_guests_not_attd(resv: List[str], attd: List[str]):
-    return set(resv) ^ set(attd)
+    return set(resv) - set(attd)
 
 
 def fmt_guests(guests: set) -> str:
