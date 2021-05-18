@@ -30,4 +30,5 @@ def main() -> None:
     print(abs(pri_sum - sec_sum))
 
 
+
 main()
