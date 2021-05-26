@@ -22,6 +22,7 @@ def get_matrix_sum(matrix):
 def get_top_point_and_sum_of_max_square(sums_squres_map):
     for top_point, square_sum in sorted(sums_squres_map.items(), key=lambda x: -x[1]):
         return top_point, square_sum
+    return 0, 0
 
 
 def fmt_output(matrix, n, max_sum, max_square_top_point):
