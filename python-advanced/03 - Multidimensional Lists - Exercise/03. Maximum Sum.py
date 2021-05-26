@@ -11,7 +11,7 @@ def get_squares(matrix, n):
         for j in range(cols_count-n+1):
             square = [matrix[row][j:j+n] for row in range(i, i+n)]
             square_sum = get_matrix_sum(square)
-            sums_squres_map[square_sum] = square
+            sums_squres_map[(i, j)] = square_sum
     return sums_squres_map
 
 
@@ -19,17 +19,18 @@ def get_matrix_sum(matrix):
     return sum(sum(matrix[i]) for i in range(len(matrix)))
 
 
-def get_max_sum_and_square(sums_squres_map):
-    for sum, square in sorted(sums_squres_map.items(), key=lambda x: -x[0]):
-        return sum, square
+def get_top_point_and_sum_of_max_square(sums_squres_map):
+    for top_point, square_sum in sorted(sums_squres_map.items(), key=lambda x: -x[1]):
+        return top_point, square_sum
 
 
-def fmt_output(max_sum, max_square):
+def fmt_output(matrix, n, max_sum, max_square_top_point):
     nl = '\n'
     result = []
+    i, j = max_square_top_point
     result.append(f'Sum = {max_sum}')
-    for row in max_square:
-        result.append(' '.join([str(x) for x in row]))
+    for row in range(i, i+n):
+        result.append(' '.join([str(x) for x in matrix[row][j:j+n]]))
     return nl.join(result)
 
 
@@ -37,8 +38,8 @@ def main() -> None:
     N = 3
     matrix = read_matrix()
     sums_squares_map = get_squares(matrix, N)
-    max_sum, max_square = get_max_sum_and_square(sums_squares_map)
-    print(fmt_output(max_sum, max_square))
+    max_square_top_point, max_sum = get_top_point_and_sum_of_max_square(sums_squares_map)
+    print(fmt_output(matrix, N, max_sum, max_square_top_point))
 
 
 main()
