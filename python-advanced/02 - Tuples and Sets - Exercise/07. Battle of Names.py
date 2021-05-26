@@ -12,7 +12,7 @@ def parse_names(l: List) -> Tuple[Set[int], Set[int]]:
         name_num = 0
         for c in name:
             name_num += ord(c)
-        name_num // (i+1)
+        name_num //= (i+1)
         if name_num % 2 == 0:
             evens.add(name_num)
         else:
