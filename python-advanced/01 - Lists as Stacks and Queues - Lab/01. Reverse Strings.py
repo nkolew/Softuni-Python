@@ -1,5 +1,7 @@
-stack = list(input())
+from collections import deque
 
-while len(stack) > 0:
-    print(stack.pop(), end='')
-print()
+
+s = deque(input())
+
+while s:
+    print(s.pop(), end='')
