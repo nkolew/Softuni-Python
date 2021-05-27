@@ -19,19 +19,18 @@ class Parking:
     def __init__(self) -> None:
         self.__cars: Set[Car] = set()
 
-    def register(self, car: Car):
+    def __add(self, car: Car):
         self.__cars.add(car)
 
-    def unregister(self, car: Car):
-        if car in self.__cars:
-            self.__cars.remove(car)
+    def __discard(self, car: Car):
+        self.__cars.discard(car)
 
-    def process_car(self, direction, car: Car):
-        operations = {
-            'IN': self.register,
-            'OUT': self.unregister,
+    def process(self, direction: str, car: Car):
+        opperations = {
+            'IN': self.__add,
+            'OUT': self.__discard,
         }
-        operations[direction](car)
+        opperations[direction](car)
 
     def get_status(self) -> str:
         if self.__cars:
@@ -52,7 +51,7 @@ def park_cars(cars: List[str]) -> Parking:
     p = Parking()
     for car_data in cars:
         direction, reg_num = car_data.split(', ')
-        p.process_car(direction, Car(reg_num))
+        p.process(direction, Car(reg_num))
     return p
 
 
