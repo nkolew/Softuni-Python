@@ -1,3 +1,16 @@
+# n = int(input())
+# arr = [[int(x) for x in input().split()] for _ in range(n)]
+
+# pri_diag_sum = 0
+# sec_diag_sum = 0
+# for i in range(n):
+#     pri_diag_sum += arr[i][i]
+#     sec_diag_sum += arr[i][n-i-1]
+
+# print(abs(pri_diag_sum - sec_diag_sum))
+
+
+
 from typing import Callable, List
 
 
