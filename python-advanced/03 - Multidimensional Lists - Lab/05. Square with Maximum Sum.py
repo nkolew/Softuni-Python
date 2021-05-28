@@ -49,3 +49,11 @@ def main() -> None:
 
 
 main()
+
+
+# n, m = [int(x) for x in input().split(', ')]
+# grid = [[int(x) for x in input().split(', ')] for _ in range(n)]
+# max_square = max([[[grid[x][y], grid[x][y+1]], [grid[x+1][y], grid[x+1][y+1]]]
+#                   for x in range(n-1) for y in range(m-1)])
+# print('\n'.join([' '.join(map(str, x)) for x in max_square]))
+# print(sum([sum(x) for x in max_square]))
