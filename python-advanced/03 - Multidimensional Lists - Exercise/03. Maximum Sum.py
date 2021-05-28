@@ -1,3 +1,24 @@
+# n, m = [int(x) for x in input().split()]
+# arr = [[int(x) for x in input().split()] for _ in range(n)]
+# K = 3
+
+# best_sum = None
+# best_coord = None
+# for i in range(n-K+1):
+#     for j in range(m-K+1):
+#         square = [arr[row][j:j+K] for row in range(i, i+K)]
+#         square_sum = sum([sum(row) for row in square])
+#         if not best_sum or best_sum < square_sum:
+#             best_sum = square_sum
+#             best_coord = (i, j)
+# if best_coord and best_sum:
+#     print(f'Sum = {best_sum}')
+#     x, y = best_coord
+#     for row in range(x, x+K):
+#         print(*arr[row][y:y+K])
+
+
+
 def read_matrix():
     n, m = map(int, input().split())
     return [[int(x) for x in input().split()] for _ in range(n)]
