@@ -37,9 +37,10 @@ while True:
             break
         else:
             current_effect -= 1
-            firework_effects.append(current_effect)
-            current_effect = firework_effects.popleft()
-            current_sum = current_effect + current_power
+            if current_effect > 0:
+                firework_effects.append(current_effect)
+            explosive_powers.append(current_power)
+        break
 
 if show_ready:
     print('Congrats! You made the perfect firework show!')
