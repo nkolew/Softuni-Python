@@ -6,7 +6,7 @@ class Field:
     def __init__(self) -> None:
         self.field = []
         self.size = 0
-        self.player = (None, None)
+        self.player = (0, 0)
         self.player_path = []
         self.coins = 0
         self.player_won = False
@@ -23,8 +23,8 @@ class Field:
                 return (i, j)
         return (0, 0)
 
-    def within_bounds(self, x, y):
-        return 0 <= x < self.size and 0 <= y < self.size
+    def within_bounds(self, i, j):
+        return 0 <= i < self.size and 0 <= j < self.size
 
     def move(self, direction):
         game_on = True
@@ -40,28 +40,27 @@ class Field:
             if not all(self.player):
                 self.player = self.player_position
 
-            x, y = self.player
-            delta_x, delta_y = direction_deltas[direction]
-            next_x, next_y = x + delta_x, y + delta_y
+            i, j = self.player
+            delta_i, delta_j = direction_deltas[direction]
+            next_i, next_j = i + delta_i, j + delta_j
 
-            if not self.within_bounds(next_x, next_y) or \
-                    self.field[next_x][next_y] == WALL:
+            if not self.within_bounds(next_i, next_j) or \
+                    self.field[next_i][next_j] == WALL:
                 self.coins //= 2
                 game_on = False
                 return game_on
 
-            next_move = self.field[next_x][next_y]
-            self.player = (next_x, next_y)
+            next_move = self.field[next_i][next_j]
+            self.player = (next_i, next_j)
             self.player_path.append(self.player)
-            self.field[x][y] = '0'
-            self.field[next_x][next_y] = PLAYER
+            self.field[i][j] = '0'
+            self.field[next_i][next_j] = PLAYER
             self.coins += int(next_move)
 
             if self.coins >= 100:
                 game_on = False
                 self.player_won = True
                 return game_on
-
         return game_on
 
     def get_path(self):
@@ -75,7 +74,6 @@ class Field:
             res.append(f"Game over! You've collected {self.coins} coins.")
         res.append('Your path:')
         res.append(self.get_path())
-
         return '\n'.join(res)
 
 
