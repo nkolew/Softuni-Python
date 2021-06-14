@@ -1,17 +1,15 @@
 MINE = '*'
 
 
-class MinesWeeper:
+class MineSweeper:
     def __init__(self) -> None:
         self.field = None
         self.size = None
-        self.bombs = None
-
-    def populate(self, n, bombs_count):
+        
+    def make_field(self, n):
         self.field = [[0]*n for i in range(n)]
         self.size = n
-        self.bombs = bombs_count
-
+        
     def place_mine(self, i, j):
         self.field[i][j] = MINE
 
@@ -68,8 +66,8 @@ class MinesWeeper:
 def main():
     n = int(input())
     mines_count = int(input())
-    mines = MinesWeeper()
-    mines.populate(n, mines_count)
+    mines = MineSweeper()
+    mines.make_field(n)
 
     for _ in range(mines_count):
         i, j = [int(x) for x in input()[1:-1].split(', ')]
