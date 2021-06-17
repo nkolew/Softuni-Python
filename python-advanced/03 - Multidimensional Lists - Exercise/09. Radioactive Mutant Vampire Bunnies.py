@@ -41,7 +41,7 @@ class BunnyCell(Cell):
 
 
 class CellFactory:
-    def create_cell(self, type: str, i: int, j: int):
+    def create_cell(self, type: str, i: int, j: int) -> Cell:
 
         cell_types = {
             'P': PlayerCell,
@@ -54,7 +54,7 @@ class CellFactory:
 
 class Lair:
     def __init__(self) -> None:
-        self._field = []
+        self._cells = []
         self._factory = CellFactory()
 
     def populate_cells(self, field_data: List[List[str]]) -> None:
@@ -68,7 +68,7 @@ class Lair:
                 type = field_data[i][j]
                 cell = self._factory.create_cell(type, i, j)
                 row.append(cell)
-            self._field.append(row)
+            self._cells.append(row)
 
 
 class Player:
@@ -81,9 +81,9 @@ class Player:
 
 class Game:
     def __init__(self) -> None:
+        self.__player = None
         self.__lair = Lair()
         self.stats = GameStats()
-        self.__player = None
 
     def parse_input_lines(self, n: int) -> None:
 
@@ -99,7 +99,7 @@ class Game:
     def __player_start_position(self) -> Tuple[int, int]:
         for i in range(self.__lair._rows):
             for j in range(self.__lair._cols):
-                cell = self.__lair._field[i][j]
+                cell = self.__lair._cells[i][j]
                 if isinstance(cell, PlayerCell):
                     return i, j
         return (0, 0)
@@ -125,18 +125,18 @@ class Game:
 
         if not self.__move_is_within(next_i, next_j):
             self.__player.has_escaped = True
-            self.__lair._field[self.__player.i][self.__player.j] = \
+            self.__lair._cells[self.__player.i][self.__player.j] = \
                 self.__lair._factory.create_cell(
                     EMPTY_MARKER, self.__player.i, self.__player.i)
             return
 
-        next_cell = self.__lair._field[next_i][next_j]
+        next_cell = self.__lair._cells[next_i][next_j]
 
         if isinstance(next_cell, EmptyCell):
 
-            self.__lair._field[next_i][next_j] = \
+            self.__lair._cells[next_i][next_j] = \
                 self.__lair._factory.create_cell(PLAYER_MARKER, next_i, next_j)
-            self.__lair._field[self.__player.i][self.__player.j] = \
+            self.__lair._cells[self.__player.i][self.__player.j] = \
                 self.__lair._factory.create_cell(
                     EMPTY_MARKER, self.__player.i, self.__player.i)
             self.__player.i = next_i
@@ -146,9 +146,9 @@ class Game:
 
         elif isinstance(next_cell, BunnyCell):
 
-            self.__lair._field[next_i][next_j] = \
+            self.__lair._cells[next_i][next_j] = \
                 self.__lair._factory.create_cell(BUNNY_MARKER, next_i, next_j)
-            self.__lair._field[self.__player.i][self.__player.j] = \
+            self.__lair._cells[self.__player.i][self.__player.j] = \
                 self.__lair._factory.create_cell(
                     EMPTY_MARKER, self.__player.i, self.__player.i)
             self.__player.i = next_i
@@ -161,10 +161,10 @@ class Game:
 
     @property
     def __bunnies(self) -> List[BunnyCell]:
-        return [self.__lair._field[i][j]
+        return [self.__lair._cells[i][j]
                 for i in range(self.__lair._rows)
                 for j in range(self.__lair._cols)
-                if isinstance(self.__lair._field[i][j], BunnyCell)]
+                if isinstance(self.__lair._cells[i][j], BunnyCell)]
 
     def __spread_bunnies(self) -> None:
 
@@ -191,22 +191,23 @@ class Game:
                 if not self.__move_is_within(next_i, next_j):
                     continue
 
-                next_cell = self.__lair._field[next_i][next_j]
+                next_cell = self.__lair._cells[next_i][next_j]
 
                 if isinstance(next_cell, EmptyCell):
-                    self.__lair._field[next_i][next_j] = \
+                    self.__lair._cells[next_i][next_j] = \
                         self.__lair._factory.create_cell(
                             BUNNY_MARKER, next_i, next_j)
 
                 elif isinstance(next_cell, PlayerCell):
                     self.__player.is_dead = True
-                    self.__lair._field[next_i][next_j] = \
+                    self.__lair._cells[next_i][next_j] = \
                         self.__lair._factory.create_cell(
                             BUNNY_MARKER, next_i, next_j)
 
-    def __decide_outcome(self):
+    def __decide_outcome(self) -> None:
         GAME_WON = 'won'
         GAME_LOST = 'dead'
+
         if self.__player.has_escaped:
             self.stats.set_outcome(GAME_WON)
         else:
@@ -218,7 +219,7 @@ class Game:
         for i in range(self.__lair._rows):
             row = []
             for j in range(self.__lair._cols):
-                row.append(str(self.__lair._field[i][j]))
+                row.append(str(self.__lair._cells[i][j]))
             final_state.append(row)
         return final_state
 
@@ -244,12 +245,6 @@ class Game:
 
 
 class GameStats:
-    def __init__(self) -> None:
-        self.outcome = None
-        self.final_state = None
-        self.player_i = None
-        self.player_j = None
-
     def set_outcome(self, outcome: str) -> None:
         self.outcome = outcome
 
@@ -272,7 +267,7 @@ class GameStats:
 
 def main() -> None:
     game = Game()
-    n, m = [int(x) for x in input().split()]
+    n, _ = [int(x) for x in input().split()]
     game.parse_input_lines(n)
     directions = deque(input())
     game.play(directions)
