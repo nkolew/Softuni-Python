@@ -25,7 +25,7 @@ class EmptyCell(Cell):
 class PlayerCell(Cell):
     def __init__(self, i, j) -> None:
         super().__init__(i, j)
-        self.marker = 'P'
+        self.marker = PLAYER_MARKER
 
     def __repr__(self) -> str:
         return f'{self.marker}'
@@ -34,7 +34,7 @@ class PlayerCell(Cell):
 class BunnyCell(Cell):
     def __init__(self, i, j) -> None:
         super().__init__(i, j)
-        self.marker = 'B'
+        self.marker = BUNNY_MARKER
 
     def __repr__(self) -> str:
         return f'{self.marker}'
