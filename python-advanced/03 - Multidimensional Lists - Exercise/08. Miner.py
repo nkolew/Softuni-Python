@@ -1,4 +1,4 @@
-from typing import Deque, List
+from typing import Deque, List, Tuple
 from collections import deque
 
 
@@ -32,27 +32,33 @@ class Miner:
 class Field:
     def __init__(self) -> None:
         self.__field: List[List[Cell]] = []
-        self.__size = []
+        self.__size: int = 0
         self.__miner = None
         self.coals = 0
 
-    def populate_cells(self, n: int) -> None:
-        self.__size = n
+    @staticmethod
+    def __read_input_lines(n: int) -> List[List[str]]:
 
-        data = [
+        field_data = [
             input().split()
             for _ in range(n)
         ]
 
+        return field_data
+
+    def populate_cells(self, n: int) -> None:
+        self.__size = n
+        field_data = self.__read_input_lines(n)
+
         for i in range(self.__size):
             row = []
             for j in range(self.__size):
-                cell = Cell(data[i][j], i, j)
+                cell = Cell(field_data[i][j], i, j)
                 row.append(cell)
             self.__field.append(row)
 
     @property
-    def coal_left(self):
+    def coal_left(self) -> int:
         return len([
             COAL_CELL_MARKER
             for i in range(self.__size)
@@ -61,25 +67,26 @@ class Field:
         ])
 
     @property
-    def has_coal_left(self):
+    def has_coal_left(self) -> bool:
         return self.coal_left > 0
 
     @property
-    def __miner_start_position(self):
+    def __miner_start_position(self) -> Tuple[int, int]:
         for i in range(self.__size):
             for j in range(self.__size):
                 if self.__field[i][j].type == START_MARKER:
                     return i, j
+        return (0, 0)
 
-    def __place_miner(self):
+    def __place_miner(self) -> None:
         i, j = self.__miner_start_position
         self.__field[i][j].type = EMPTY_CELL_MARKER
         self.__miner = Miner(i, j)
 
-    def move_is_within(self, i, j):
+    def __move_is_within(self, i: int, j: int):
         return 0 <= i < self.__size and 0 <= j < self.__size
 
-    def move_player(self, direction):
+    def __move_player(self, direction) -> None:
         if not self.has_coal_left:
             return
 
@@ -93,7 +100,7 @@ class Field:
         delta_i, delta_j = direction_deltas[direction]
         next_i, next_j = self.__miner.i + delta_i, self.__miner.j + delta_j
 
-        if not self.move_is_within(next_i, next_j):
+        if not self.__move_is_within(next_i, next_j):
             return
 
         self.__miner.i, self.__miner.j = next_i, next_j
@@ -111,7 +118,7 @@ class Field:
 
         return
 
-    def execute(self, directions: Deque[str]):
+    def execute(self, directions: Deque[str]) -> None:
         self.__place_miner()
 
         while True:
@@ -122,10 +129,11 @@ class Field:
                 break
 
             direction = directions.popleft()
-            self.move_player(direction)
+            self.__move_player(direction)
 
     def __str__(self) -> str:
-        message = deque()
+        message = []
+        nl = '\n'
 
         if self.has_coal_left and self.__miner.has_reached_end_marker:
             message.append(f'Game over! ({self.__miner.i}, {self.__miner.j})')
@@ -136,13 +144,13 @@ class Field:
             message.append(
                 f'{self.coal_left} coals left. ({self.__miner.i}, {self.__miner.j})')
 
-        return '\n'.join(message)
+        return nl.join(message)
 
 
 def main():
-    field = Field()
     n = int(input())
     directions = deque(input().split())
+    field = Field()
     field.populate_cells(n)
     field.execute(directions)
     print(field)
