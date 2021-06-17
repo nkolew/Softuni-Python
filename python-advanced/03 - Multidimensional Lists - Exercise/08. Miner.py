@@ -86,7 +86,7 @@ class Field:
     def __move_is_within(self, i: int, j: int):
         return 0 <= i < self.__size and 0 <= j < self.__size
 
-    def __move_player(self, direction) -> None:
+    def __move_miner(self, direction) -> None:
         if not self.has_coal_left:
             return
 
@@ -129,7 +129,7 @@ class Field:
                 break
 
             direction = directions.popleft()
-            self.__move_player(direction)
+            self.__move_miner(direction)
 
     def __str__(self) -> str:
         message = []
