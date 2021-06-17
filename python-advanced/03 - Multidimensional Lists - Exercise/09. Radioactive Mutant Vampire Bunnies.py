@@ -125,6 +125,9 @@ class Game:
 
         if not self.__move_is_within(next_i, next_j):
             self.__player.has_escaped = True
+            self.__lair._field[self.__player.i][self.__player.j] = \
+                self.__lair._factory.create_cell(
+                    EMPTY_MARKER, self.__player.i, self.__player.i)
             return
 
         next_cell = self.__lair._field[next_i][next_j]
@@ -147,7 +150,7 @@ class Game:
                 self.__lair._factory.create_cell(BUNNY_MARKER, next_i, next_j)
             self.__lair._field[self.__player.i][self.__player.j] = \
                 self.__lair._factory.create_cell(
-                    BUNNY_MARKER, self.__player.i, self.__player.i)
+                    EMPTY_MARKER, self.__player.i, self.__player.i)
             self.__player.i = next_i
             self.__player.j = next_j
             self.__player.is_dead = True
@@ -172,7 +175,13 @@ class Game:
             (1, 0),
         ]
 
-        for bunny in self.__bunnies:
+        bunnies: Deque[BunnyCell] = deque(self.__bunnies)
+
+        while True:
+            if not bunnies:
+                break
+
+            bunny = bunnies.popleft()
 
             for delta in spread_direction_deltas:
 
@@ -199,13 +208,25 @@ class Game:
         GAME_WON = 'won'
         GAME_LOST = 'dead'
         if self.__player.has_escaped:
-            self.stats.set_outcome(
-                GAME_WON, self.__player.i, self.__player.j)
+            self.stats.set_outcome(GAME_WON)
         else:
-            self.stats.set_outcome(
-                GAME_LOST, self.__player.i, self.__player.j)
+            self.stats.set_outcome(GAME_LOST)
 
-    def play(self, directions: Deque[str]):
+    @property
+    def __final_state(self) -> List[List[str]]:
+        final_state = []
+        for i in range(self.__lair._rows):
+            row = []
+            for j in range(self.__lair._cols):
+                row.append(str(self.__lair._field[i][j]))
+            final_state.append(row)
+        return final_state
+
+    def __pass_final_state(self) -> None:
+        self.stats.set_final_state(
+            self.__final_state, self.__player.i, self.__player.j)
+
+    def play(self, directions: Deque[str]) -> None:
         while True:
             if self.__player.is_dead or \
                     self.__player.has_escaped:
@@ -219,24 +240,37 @@ class Game:
                 break
 
         self.__decide_outcome()
+        self.__pass_final_state()
 
 
 class GameStats:
     def __init__(self) -> None:
         self.outcome = None
+        self.final_state = None
         self.player_i = None
         self.player_j = None
 
-    def set_outcome(self, outcome: str, i: int, j: int):
+    def set_outcome(self, outcome: str) -> None:
         self.outcome = outcome
+
+    def set_final_state(self, final_state: List[List[str]], i: int, j: int) -> None:
+        self.final_state = final_state
         self.player_i = i
         self.player_j = j
 
     def __str__(self) -> str:
-        return f'{self.outcome}: {self.player_i} {self.player_j}'
+        message = []
+        nl = '\n'
+
+        for row in self.final_state:
+            message.append(''.join(row))
+
+        message.append(f'{self.outcome}: {self.player_i} {self.player_j}')
+
+        return nl.join(message)
 
 
-def main():
+def main() -> None:
     game = Game()
     n, m = [int(x) for x in input().split()]
     game.parse_input_lines(n)
