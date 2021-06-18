@@ -1,0 +1,8 @@
+{"id":1, "name": "prod1", "img_path":"01.jpg", "count": 1}
+{"id":2, "name": "prod2", "img_path":"02.jpg", "count": 2}
+{"id":3, "name": "prod3", "img_path":"01.jpg", "count": 2}
+{"id":4, "name": "prod4", "img_path":"01.jpg", "count": 3}
+{"id":5, "name": "prod5", "img_path":"01.jpg", "count": 2}
+{"id":6, "name": "prod2", "img_path":"01.jpg", "count": 2}
+{"id":7, "name": "prod2", "img_path":"01.jpg", "count": 2}
+{"id":8, "name": "prod2", "img_path":"01.jpg", "count": 2}
