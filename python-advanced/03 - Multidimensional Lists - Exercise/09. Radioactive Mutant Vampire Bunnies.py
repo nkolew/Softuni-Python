@@ -6,6 +6,11 @@ PLAYER_MARKER = 'P'
 BUNNY_MARKER = 'B'
 EMPTY_MARKER = '.'
 
+LEFT = 'L'
+UP = 'U'
+RIGHT = 'R'
+DOWN = 'D'
+
 
 class Cell:
     def __init__(self, i, j) -> None:
@@ -41,15 +46,15 @@ class BunnyCell(Cell):
 
 
 class CellFactory:
-    def create_cell(self, type: str, i: int, j: int) -> Cell:
+    def create_cell(self, marker: str, i: int, j: int) -> Cell:
 
         cell_types = {
-            'P': PlayerCell,
-            'B': BunnyCell,
-            '.': EmptyCell,
+            PLAYER_MARKER: PlayerCell,
+            BUNNY_MARKER: BunnyCell,
+            EMPTY_MARKER: EmptyCell,
         }
 
-        return cell_types[type](i, j)
+        return cell_types[marker](i, j)
 
 
 class Lair:
@@ -65,8 +70,8 @@ class Lair:
         for i in range(self._rows):
             row = []
             for j in range(self._cols):
-                type = field_data[i][j]
-                cell = self._factory.create_cell(type, i, j)
+                marker = field_data[i][j]
+                cell = self._factory.create_cell(marker, i, j)
                 row.append(cell)
             self._cells.append(row)
 
@@ -114,10 +119,10 @@ class Game:
     def __move_player(self, direction) -> None:
 
         direction_deltas = {
-            'L': (0, -1),
-            'U': (-1, 0),
-            'R': (0, 1),
-            'D': (1, 0),
+            LEFT: (0, -1),
+            UP: (-1, 0),
+            RIGHT: (0, 1),
+            DOWN: (1, 0),
         }
 
         delta_i, delta_j = direction_deltas[direction]
@@ -130,7 +135,7 @@ class Game:
                     EMPTY_MARKER, self.__player.i, self.__player.i)
             return
 
-        next_cell = self.__lair._cells[next_i][next_j]
+        next_cell: Cell = self.__lair._cells[next_i][next_j]
 
         if isinstance(next_cell, EmptyCell):
 
@@ -191,7 +196,7 @@ class Game:
                 if not self.__move_is_within(next_i, next_j):
                     continue
 
-                next_cell = self.__lair._cells[next_i][next_j]
+                next_cell: Cell = self.__lair._cells[next_i][next_j]
 
                 if isinstance(next_cell, EmptyCell):
                     self.__lair._cells[next_i][next_j] = \
