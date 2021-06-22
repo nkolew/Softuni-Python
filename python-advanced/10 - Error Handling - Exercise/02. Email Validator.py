@@ -17,7 +17,7 @@ class InvalidDomainError(EmailValidatorError):
     pass
 
 
-def email_validator(*emails: str):
+def email_validator():
 
     VALID_TLDS = ('.com', '.bg', '.org', '.net')
 
@@ -25,6 +25,14 @@ def email_validator(*emails: str):
         r'(?P<name>[\w\.-]+)(?P<at_sign>@)([\w\.-]+)*(?P<tld>\.[a-z]+)'
     )
 
+    emails = []
+
+    while True:
+        email = input()
+        if email == 'End':
+            break
+        emails.append(email)
+    
     for email in emails:
 
         for match in pattern.finditer(email):
@@ -49,6 +57,6 @@ def email_validator(*emails: str):
                 raise err.with_traceback(err.__traceback__)
 
 
-# email_validator('abc@abv.bg')
+email_validator()
 # email_validator('peter@gmail.com', 'petergmail.com')
 # email_validator('peter@gmail.hotmail')
