@@ -1,10 +1,10 @@
 import string
 import os
 
-input = f'{os.path.dirname(os.path.abspath(__file__))}/text.txt'
-output = f'{os.path.dirname(os.path.abspath(__file__))}/output.txt'
+input_f = f'{os.path.dirname(os.path.abspath(__file__))}/text.txt'
+output_f = f'{os.path.dirname(os.path.abspath(__file__))}/output.txt'
 
-with open(input, 'r') as fh:
+with open(input_f, 'r') as fh:
     content = fh.readlines()
 
 out = []
@@ -28,5 +28,5 @@ for index, line in enumerate(content):
     out.append(f'{line_nr}: {line} ({chars["let"]})({chars["punct"]})')
 out = '\n'.join(out)
 
-with open(output, 'w') as fh:
+with open(output_f, 'w') as fh:
     fh.write(out)
