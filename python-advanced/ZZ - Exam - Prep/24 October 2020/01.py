@@ -18,3 +18,17 @@ while True:
     i += 1
 
 print(clock_cycles)
+
+
+# from heapq import heappop
+
+# tasks = [int(x) for x in input().split(', ')]
+# index = int(input())
+
+# searched_task = tasks[index]
+
+# clock_cycles = 0
+# while (task := heappop(tasks)) <= searched_task:
+#     clock_cycles += task
+
+# print(clock_cycles)
