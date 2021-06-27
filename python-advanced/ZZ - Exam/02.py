@@ -12,7 +12,6 @@ class ShotgunRange:
         self._player_i = 0
         self._player_j = 0
         self._targets = []
-        self._init_targets_count = 0
         self._targets_hit = []
 
     def _player_position(self):
@@ -27,16 +26,15 @@ class ShotgunRange:
             for j in range(self._size):
                 if self._field[i][j] == TARGET:
                     self._targets.append((i, j))
-        self._init_targets_count = len(self._targets)
 
-    def setup(_self):
-        _self._size = SIZE
-        _self._field = [input().split() for _ in range(_self._size)]
-        _self._player_i, _self._player_j = _self._player_position()
-        _self._get_targets()
+    def setup(self):
+        self._size = SIZE
+        self._field = [input().split() for _ in range(self._size)]
+        self._player_i, self._player_j = self._player_position()
+        self._get_targets()
 
     @property
-    def has_targets_left(self):
+    def has_targets(self):
         return len(self._targets) > 0
 
     def _move_is_within(self, i: int, j: int) -> bool:
@@ -51,7 +49,6 @@ class ShotgunRange:
         }
 
         delta_i, delta_j = direction_deltas[direction]
-
         next_i, next_j = self._player_i + delta_i, self._player_j + delta_j
 
         if not self._move_is_within(next_i, next_j):
@@ -131,11 +128,14 @@ class ShotgunRange:
     def play(self):
         commands = self._take_commands()
 
-        while commands:
+        while True:
 
-            if not self.has_targets_left:
+            if not self.has_targets:
                 return
-                
+
+            if not commands:
+                return
+
             command, *tokens = commands.popleft()
             self._execute(command, *tokens)
 
@@ -143,9 +143,9 @@ class ShotgunRange:
         message = []
         nl = '\n'
 
-        if not self.has_targets_left:
+        if not self.has_targets:
             message.append(
-                f'Training completed! All {self._init_targets_count} targets hit.')
+                f'Training completed! All {len(self._targets_hit)} targets hit.')
         else:
             message.append(
                 f'Training not completed! {len(self._targets)} targets left.')
