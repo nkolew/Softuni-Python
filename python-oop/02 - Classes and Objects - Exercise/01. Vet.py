@@ -22,7 +22,7 @@ class Vet:
         self.animals.pop(self.animals.index(animal_name))
         Vet.animals.pop(Vet.animals.index(animal_name))
         Vet.space += 1
-        return f'{animal_name} not in the clinic'
+        return f'{animal_name} unregistered successfully'
 
     def info(self) -> str:
         return f'{self.name} has {len(self.animals)} animals. {Vet.space} space left in clinic'
