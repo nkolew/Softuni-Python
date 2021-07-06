@@ -9,7 +9,7 @@ from project.beverage.hot_beverage import HotBeverage
 from project.food.soup import Soup
 from project.food.salmon import Salmon
 from project.food.cake import Cake
-from project.beverage.cofee import Coffee
+from project.beverage.coffee import Coffee
 from project.beverage.tea import Tea
 
 __all__ = ['Product', 'Food', 'Beverage', 'Starter', 'MainDish',
