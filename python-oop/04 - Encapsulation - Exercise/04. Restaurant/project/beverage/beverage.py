@@ -12,7 +12,3 @@ class Beverage(Product):
     def milliliters(self):
         """The milliliters property."""
         return self.__milliliters
-
-    @milliliters.setter
-    def milliliters(self, value):
-        self.__milliliters = value
