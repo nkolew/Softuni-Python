@@ -9,20 +9,10 @@ class Pizza:
     __toppings: Dict[str, float]
 
     def __init__(self, name: str, dough: Dough, toppings_capacity: int) -> None:
-        if name == '':
-            raise ValueError("The name cannot be an empty string")
-
-        if not dough:
-            raise ValueError("You should add dough to the pizza")
-
-        if toppings_capacity <= 0:
-            raise ValueError(
-                "The topping's capacity cannot be less or equal to zero")
-
-        self.__name = name
-        self.__dough = dough
-        self.__toppings_capacity = toppings_capacity
-        self.__toppings = {}
+        self.name = name
+        self.dough = dough
+        self.toppings_capacity = toppings_capacity
+        self.toppings = {}
 
     @property
     def name(self):
