@@ -78,9 +78,9 @@ class Zoo:
 
     def tend_animals(self) -> str:
         for a in self.animals:
-            if self.__budget < a.get_needs():
+            if self.__budget < a.money_for_care:
                 return 'You have no budget to tend the animals. They are unhappy.'
-            self.__budget -= a.get_needs()
+            self.__budget -= a.money_for_care
         return f'You tended all the animals. They are happy. Budget left: {self.__budget}'
 
     def profit(self, amount: int) -> None:
