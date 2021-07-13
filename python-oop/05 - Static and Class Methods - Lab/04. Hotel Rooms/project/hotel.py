@@ -26,17 +26,19 @@ class Hotel:
 
     def take_room(self, room_number: int, people: int) -> None:
         for r in self.rooms:
-            if r.number == room_number and r.capacity >= people:
-                r.take_room(people)
-                self.update_guests()
-                return
+            if r.number != room_number or r.capacity < people:
+                continue
+            r.take_room(people)
+            self.update_guests()
+            return
 
     def free_room(self, room_number: int) -> None:
         for r in self.rooms:
-            if r.number == room_number:
-                r.free_room()
-                self.update_guests()
-                return
+            if r.number != room_number:
+                continue
+            r.free_room()
+            self.update_guests()
+            return
 
     def status(self) -> str:
         return f'''Hotel {self.name} has {self.guests} total guests
