@@ -14,10 +14,10 @@ class Animal(ABC):
     def __repr__(self) -> str:
         return f'This is {self.name}. {self.name} is a {self.age} year old {self.gender} {self.__class__.__name__}'
 
+    @property
     @abstractmethod
     def _SOUND(self) -> str:
         ...
 
     def make_sound(self):
-        print(self._SOUND)
         return self._SOUND
