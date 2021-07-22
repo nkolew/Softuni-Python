@@ -32,6 +32,15 @@ class Everland:
     def _room_has_enough_budget_to_pay(self, room: Room) -> bool:
         return room.budget >= self._get_montly_due_for_room(room)
 
+    def _get_payment_info_for_room(self, room: Room) -> str:
+        if self._room_has_enough_budget_to_pay(room):
+            room_monthly_expenses = self._get_montly_due_for_room(room)
+            room.budget -= room_monthly_expenses
+            return f'{room.family_name} paid {room_monthly_expenses:.2f}$ and have {room.budget:.2f}$ left.'
+
+        self.rooms.remove(room)
+        return f'{room.family_name} does not have enough budget and must leave the hotel.'
+
     def pay(self) -> str:
         """
         Each room represents one of the following strings:
@@ -43,30 +52,8 @@ class Everland:
         and remove the room from the rooms list
         Return all the information by joining the strings by a new line
         """
-        message = []
 
-        rooms_deque = deque(self.rooms)
-
-        i = 0
-        end = len(rooms_deque)
-
-        while i < end:
-            r = rooms_deque.popleft()
-            if not self._room_has_enough_budget_to_pay(r):
-                message.append(
-                    f'{r.family_name} does not have enough budget and must leave the hotel.')
-
-                i += 1
-                continue
-
-            room_monthly_expenses = self._get_montly_due_for_room(r)
-            r.budget -= room_monthly_expenses
-            rooms_deque.append(r)
-            message.append(
-                f'{r.family_name} paid {room_monthly_expenses:.2f}$ and have {r.budget:.2f}$ left.')
-            i += 1
-
-        self.rooms = list(rooms_deque)
+        message = [self._get_payment_info_for_room(r) for r in self.rooms]
 
         return '\n'.join(message)
 

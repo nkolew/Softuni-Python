@@ -13,7 +13,7 @@ def test_one():
 
     everland.add_room(young_couple)
     everland.add_room(young_couple_with_children)
-    # young_couple.budget -= 200
+    young_couple.budget -= 200
 
     print(everland.get_monthly_consumptions())
     print(everland.pay())
