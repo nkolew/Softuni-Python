@@ -15,6 +15,8 @@ class YoungCoupleWithChildren(Room):
         super().__init__(family_name, budget, members_count)
 
         self.children = list(children)
-        self.appliaces = self.__class__._APPLIANCES*members_count
+        self.appliances = self.__class__._APPLIANCES*members_count
 
-        self.calculate_expenses(self.appliaces, self.children)
+        self.room_cost = self.__class__._ROOM_COST
+
+        self.calculate_expenses(self.appliances, self.children)

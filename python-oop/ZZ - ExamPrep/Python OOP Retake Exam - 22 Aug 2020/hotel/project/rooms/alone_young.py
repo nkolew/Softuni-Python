@@ -10,7 +10,9 @@ class AloneYoung(Room):
 
     def __init__(self, family_name: str, budget: float) -> None:
         super().__init__(family_name, budget, self.__class__._MEMBERS_COUNT)
-        
+
         self.appliances = self.__class__._APPLIANCES
         
+        self.room_cost = self.__class__._ROOM_COST
+
         self.calculate_expenses(self.appliances)

@@ -15,4 +15,6 @@ class OldCouple(Room):
         self.appliances = self.__class__._APPLIANCES * \
             self.__class__._MEMBERS_COUNT
 
+        self.room_cost = self.__class__._ROOM_COST
+
         self.calculate_expenses(self.appliances)
