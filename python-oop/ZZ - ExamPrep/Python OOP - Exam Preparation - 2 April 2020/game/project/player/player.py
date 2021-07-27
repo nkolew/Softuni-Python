@@ -69,4 +69,4 @@ class Player(ABC):
         self.health += sum(c.health_points for c in self.card_repository.cards)
 
     def add(self, card: Card):
-        self.card_repository.cards.append(card)
+        self.card_repository.add(card)
