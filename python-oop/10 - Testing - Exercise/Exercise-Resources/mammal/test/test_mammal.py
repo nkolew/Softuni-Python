@@ -16,7 +16,7 @@ class MammalTests(unittest.TestCase):
         self.assertEqual(ANIMAL_NAME, self.mammal.name)
         self.assertEqual(ANIMAL_TYPE, self.mammal.type)
         self.assertEqual(ANIMAL_SOUND, self.mammal.sound)
-        
+        self.assertEqual('animals', self.mammal._Mammal__kingdom)
 
     def test_animal_can_make_sound(self):
         expected = 'Test makes bark'
@@ -27,7 +27,7 @@ class MammalTests(unittest.TestCase):
         self.assertEqual(expected, self.mammal.info())
 
     def test_animal_can_report_kingdom(self):
-        
+
         self.assertEqual(KINGDOM, self.mammal.get_kingdom())
 
 
