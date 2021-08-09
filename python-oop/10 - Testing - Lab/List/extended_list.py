@@ -40,3 +40,23 @@ class IntegerList:
  
     def get_index(self, el):
         return self.get_data().index(el)
+
+
+import unittest
+
+class TestIntegerList(unittest.TestCase):
+    def setUp(self) -> None:
+        self.list_integers = IntegerList([5, 6, 7])
+
+    def test_init_create_all_attributes(self):
+        self.assertEqual(self.list_integers, self.list_integers._IntegerList__data)
+
+    def test_int_takes_not_integers(self):
+        list_integers = IntegerList(5.6, '6', 7)
+        self.assertEqual([], list_integers._IntegerList__data)
+
+    def test_add_integer_is_added(self):
+        pass
+
+if __name__ == "__main__":
+    unittest.main()

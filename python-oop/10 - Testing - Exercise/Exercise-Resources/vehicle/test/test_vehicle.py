@@ -23,10 +23,10 @@ class VehicleTests(unittest.TestCase):
 
     def test_vehicle_drive_raises_when_not_enough_fuel(self):
         with self.assertRaises(Exception) as ctx:
-            msg = "Not enough fuel"
             self.v.drive(10)
-            self.assertEqual(10.5, self.v.fuel)
-            self.assertEqual(msg, str(ctx.exception))
+        msg = "Not enough fuel"
+        self.assertEqual(10.5, self.v.fuel)
+        self.assertEqual(msg, str(ctx.exception))
 
     def test_refuel_successful_when_valid_fuel(self):
         self.v.drive(2)
@@ -36,9 +36,9 @@ class VehicleTests(unittest.TestCase):
     def test_refuel_raises_when_too_much_fuel(self):
         self.v.drive(2)
         with self.assertRaises(Exception) as ctx:
-            msg = "Too much fuel"
             self.v.refuel(10)
-            self.assertEqual(msg, str(ctx.exception))
+        msg = "Too much fuel"
+        self.assertEqual(msg, str(ctx.exception))
         self.assertEqual(8.0, self.v.fuel)
 
     def test_vehicle_string_representation(self):
