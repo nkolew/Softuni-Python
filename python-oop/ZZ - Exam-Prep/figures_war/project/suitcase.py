@@ -1,6 +1,6 @@
-from typing import ClassVar, List, Optional, Tuple, Type
+from typing import ClassVar, List, Optional, Tuple
 
-from project import Circle, Figure, Rectangle, Square, Triangle
+from project import Figure
 
 SEP = ', '
 
@@ -39,7 +39,7 @@ class Suitcase:
         figure = self.get_figure(figure_name)
 
         if not figure:
-            raise KeyError("Figure: {figure_name} not exist!")
+            raise KeyError(f"Figure: {figure_name} not exist!")
 
         self.repository.remove(figure)
         return f'Figure: {figure_name} removed.'

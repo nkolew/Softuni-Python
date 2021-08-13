@@ -13,6 +13,9 @@ class Figure(ABC):
         self.name = name
         self.attributes = attributes
 
+    def __eq__(self, o: object) -> bool:
+        return isinstance(o, self.__class__) and self.name == o.name
+
     @staticmethod
     def _validate(value: float) -> None:
         if value < 0:
@@ -63,9 +66,7 @@ class Figure(ABC):
 
     @property
     def relativity(self) -> float:
-        area = self.calculate_area()
-        circumference = self.calculate_circumference()
-        return area / circumference
+        return self.area / self.circumference
 
     def __str__(self) -> str:
         return f'''Figure name: {self.name}
